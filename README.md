@@ -23,3 +23,36 @@ To use this tool, simply build and run the project. The tool will start monitori
 ```sh
 cmake -B build/release -DCMAKE_BUILD_TYPE=Release && cmake --build build/release
 ```
+
+## Login Item (Optional)
+
+You can configure the tool to start automatically at login by creating a LaunchAgent.
+
+Create a LaunchAgent configuration file and save to `~/Library/LaunchAgents/me.ktiays.fcuvs.plist`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>me.ktiays.fcuvs</string>
+    <key>ProgramArguments</key>
+	<array>
+		<string>/path/to/fcuvs</string>
+	</array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>WorkingDirectory</key>
+	<string>/var/tmp</string>
+</dict>
+</plist>
+```
+
+You can then start the LaunchAgent by running:
+
+```sh
+launchctl load -w ~/Library/LaunchAgents/me.ktiays.fcuvs.plist
+```
