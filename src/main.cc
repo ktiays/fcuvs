@@ -79,7 +79,9 @@ int main(int argc, char *argv[]) {
             std::cout << "Searching for process " << target_name << std::endl;
             auto pids = get_pids_by_name(target_name);
             if (pids.empty()) {
-                continue;
+                goto skip;
+            } else {
+                std::cout << "Found " << pids.size() << " processes" << std::endl;
             }
             pid = pids.front();
             std::cout << "Found process " << pid << std::endl;
@@ -90,6 +92,7 @@ int main(int argc, char *argv[]) {
             kill(pid, SIGKILL);
         }
 
+    skip:
         std::this_thread::sleep_for(std::chrono::seconds(5));
     }
 
